@@ -17,9 +17,13 @@ function httpGetAsync(theUrl, callback)
     xmlHttp.send(null);
 }
 
-function readURL() {
+function prepareURLForSAP( matNumber ) {
+	return "https://sapq1522.statoil.no:4337/sap/bc/resources/ssdd2016/mat_" + matNumber + "_.xml";
+}
+
+function readMaterialFromSAP() {
 	var matNumber = document.getElementById("input_material_nr");
-	var url = "https://sapq1522.statoil.no:4337/sap/bc/resources/ssdd2016/mat_" + matNumber.value + "_.xml";
+	var url = prepareURLForSAP( matNumber.value );
 	return url;
 }
 
@@ -29,6 +33,6 @@ function handleResponse( text ) {
 }
 
 function processURL() {
-	var url = readURL( );
+	var url = readMaterialFromSAP( );
 	httpGetAsync(url, handleResponse );
 }

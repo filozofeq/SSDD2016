@@ -1,0 +1,14 @@
+@CHARSET "ISO-8859-1";
+
+
+.input-number {
+	padding: 2px;
+	margin-bottom: 2px;	
+	margin-top: 2px;	
+	color: blue;
+}
+
+
+H1 {
+	color: red;
+}
