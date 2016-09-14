@@ -1,3 +1,9 @@
+initMainApp();
+
+function initMainApp() {
+	ES6Promise.polyfill();
+}
+
 function httpGetSync(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
