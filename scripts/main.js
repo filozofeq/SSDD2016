@@ -29,7 +29,7 @@ function readMaterialFromSAP() {
 
 function handleResponse( text ) {
 	var matDescription = document.getElementById("material_description");
-	matDescription.textContent = text;
+	matDescription.value = text;
 }
 
 function processURL() {

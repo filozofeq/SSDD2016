@@ -6,18 +6,31 @@
 <link href="styles/main.css" rel='stylesheet' type="text/css"/>
 </head>
 <body>
+<header><meta http-equiv="Access-Control-Allow-Origin" content="*"></header>
 	<table>
+		<TR class="controls" >
+			<TD><input type="file" accept="image/*" capture="camera" /></TD>
+			<TD><button>Scan barcode</button></TD>
+		</TR>
 		<TR>
-			<TD>Material number: </TD>
+			<TD>Material number: </TD>	
 			<TD><input class='input-number' id='input_material_nr' type="text" ></TD>
 		</TR>
 		<TR>
 			<TD></TD>
-			<TD><button name="Load URL" onclick="processURL()">Load URL</button></TD>
+			<TD><button name="Get" onclick="processURL()">Get material data from SAP</button></TD>
+		</TR>
+		<TR></TR>
+		<TR>
+			<TD>Description:</TD>
+			<TD><input id="material_description" readonly="readonly"/></TD>
 		</TR>
 	</table>
 	<h1 id="material_description" ></h1>
 	<script src="scripts/main.js"></script>
+	<script src="scripts/jquery-1.9.0.min.js" type="text/javascript"></script>
+	<script src="scripts/quagga.js" type="text/javascript"></script>
+	<script src="scripts/file_input.js" type="text/javascript"></script>
 </body>
 </html>
 
