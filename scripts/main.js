@@ -1,7 +1,7 @@
 initMainApp();
 
 function initMainApp() {
-	ES6Promise.polyfill();
+	//ES6Promise.polyfill();
 }
 
 function httpGetSync(theUrl)
