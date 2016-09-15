@@ -34,11 +34,35 @@ function readMaterialFromSAP() {
 }
 
 function handleResponse( text ) {
-	var matDescription = document.getElementById("material_description");
-	matDescription.value = text;
+	if ( text ) {
+		fillInDataFromJSONOData( text );
+	}
 }
 
 function processURL() {
 	var url = readMaterialFromSAP( );
 	httpGetAsync(url, handleResponse );
+}
+
+function fillInDataFromJSONOData( jsonText ) {
+
+	//jsonText = '{ "description" : "Strawberry jelly, 125g" , "valid_to" : "20190401", "amount_stock": "1.000", "picture_url" : "product1.jpg" }';
+	jsonObject = JSON.parse( jsonText );
+	
+	var description 	= jsonObject.description;
+	var validTo			= jsonObject.valid_to;
+	var amountInStock 	= jsonObject.amount_stock;
+	var pictureURL		= jsonObject.picture_url;
+	
+	var guiMatDescription = document.getElementById("material_description");
+	guiMatDescription.value = description;
+	
+	var guiMatValidTo = document.getElementById("material_valid_to");
+	guiMatValidTo.value = validTo;
+	
+	var guiAmountInStock = document.getElementById("material_amount_stock");
+	guiAmountInStock.value = amountInStock;
+	
+	var guiMatImage = document.getElementById("material_image");
+	guiMatImage.src = "images/" + pictureURL;
 }

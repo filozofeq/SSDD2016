@@ -1,0 +1,58 @@
+CLASS zcl_ssd2016_request_handler DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+
+    INTERFACES zif_resource_handler .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_ssd2016_request_handler IMPLEMENTATION.
+
+  METHOD zif_resource_handler~check_access.
+
+  ENDMETHOD.
+
+  METHOD zif_resource_handler~check_conflicts.
+
+  ENDMETHOD.
+
+  METHOD zif_resource_handler~handle_delete.
+
+  ENDMETHOD.
+
+  METHOD zif_resource_handler~handle_get.
+    DATA: l_param LIKE LINE OF it_params.
+    DATA: l_param_string TYPE string.
+    DATA: lt_parameters          TYPE TABLE OF string,
+          l_material_number      TYPE zssd_mara_s-matnr,
+          l_mat_string_prefix    TYPE string,
+          l_rest_url_string      TYPE string,
+          ls_material_data TYPE zssd_mara_s.
+
+    READ TABLE it_params INDEX 1 INTO l_param.
+    l_param_string = l_param-value.
+
+    SPLIT l_param_string AT '_' INTO l_mat_string_prefix l_material_number l_rest_url_string .
+
+    ls_material_data = zcl_ssd2016_material=>get_material( l_material_number ).
+*    result-content = |You scanned material { l_material_number }: "{ ls_material_data-text }".|.
+    result-content = ls_material_data-text.
+    result-statuscode   = 200.
+
+  ENDMETHOD.
+
+  METHOD zif_resource_handler~handle_post.
+
+  ENDMETHOD.
+
+  METHOD zif_resource_handler~handle_put.
+
+  ENDMETHOD.
+
+ENDCLASS.
