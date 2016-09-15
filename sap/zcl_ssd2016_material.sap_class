@@ -1,0 +1,72 @@
+CLASS zcl_ssd2016_material DEFINITION
+  PUBLIC
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+
+    CLASS-METHODS get_material
+      IMPORTING
+        !i_matnr           TYPE char18
+      RETURNING
+        VALUE(rs_material) TYPE  zssd_material_t .
+
+    CLASS-METHODS update_db_entries.
+
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_ssd2016_material IMPLEMENTATION.
+
+
+  METHOD get_material.
+
+    DATA: l_matnr TYPE matnr.
+
+    CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'
+      EXPORTING
+        input  = i_matnr
+      IMPORTING
+        output = l_matnr.
+
+    SELECT SINGLE *
+      FROM zssd_material_t
+      INTO CORRESPONDING FIELDS OF rs_material
+      WHERE matnr = l_matnr .
+
+
+  ENDMETHOD.
+
+  METHOD update_db_entries.
+
+    DATA ls_material TYPE zssd_material_t.
+    DELETE FROM zssd_material_t.
+    ls_material-matnr = '000007040110258000'.
+    ls_material-text = 'Strawberry jelly, 125g'.
+    ls_material-price = '30'.
+    ls_material-valid_date = '20190401'.
+    ls_material-amount_stock = 1.
+    ls_material-picture_url = 'product1.jpg'.
+    MODIFY zssd_material_t FROM ls_material.
+    ls_material-matnr = '000005900300544912'.
+    ls_material-text = 'Compact chicken, 10 x 10g'.
+    ls_material-price = '40'.
+    ls_material-valid_date = '20161101'.
+    ls_material-amount_stock = 2.
+    ls_material-picture_url = 'product2.jpg'.
+    MODIFY zssd_material_t FROM ls_material.
+    ls_material-matnr = '000007045617010502'.
+    ls_material-text = 'Red cabbage dry, box 450g'.
+    ls_material-price = '25'.
+    ls_material-valid_date = '20170201'.
+    ls_material-amount_stock = 3.
+    ls_material-picture_url = 'product3.jpg'.
+    MODIFY zssd_material_t FROM ls_material.
+
+    WRITE: 'Database table ZSSD_MATERIAL_T updated OK'.
+
+  ENDMETHOD.
+
+ENDCLASS.
